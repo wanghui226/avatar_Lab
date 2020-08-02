@@ -2,3 +2,7 @@
 Library
 Assembly-CSharp.csproj
 *.sln
+Temp
+*.csproj
+obj
+.vs

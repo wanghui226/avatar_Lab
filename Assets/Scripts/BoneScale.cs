@@ -38,7 +38,7 @@ public class BoneScale{
     public static void CreatBipChildrenNode(Transform[] allbones,Vector3 PlayeLocalScale,List<Transform> BoneChildrenNode){
         for (int i = 0; i < allbones.Length; i++){
             GameObject BoneAllSon = new GameObject();
-            BoneAllSon.name = allbones[i].name + "Son";
+            BoneAllSon.name = allbones[i].name + "_son";
             BoneAllSon.transform.position = allbones[i].position;
             BoneAllSon.transform.localScale = new Vector3(allbones[i].localScale.x*PlayeLocalScale.x,allbones[i].localScale.y*PlayeLocalScale.y,allbones[i].localScale.z*PlayeLocalScale.z);
             BoneAllSon.transform.eulerAngles = allbones[i].eulerAngles;
