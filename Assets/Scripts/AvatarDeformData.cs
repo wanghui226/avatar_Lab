@@ -162,8 +162,10 @@ public class AvatarDeformData : ScriptableObject {
 
     public void CopyValuesFromAnotherData(AvatarDeformData avatarDeformData_Source) {
         foreach(string key in avatarDeformData_Source.allFieldsValue.Keys) {
-            foreach(Vector3 values in this[key]) { 
-
+            foreach(Vector3 values in this[key]) {
+                this[key][0] = avatarDeformData_Source[key][0];
+                this[key][1] = avatarDeformData_Source[key][1];
+                this[key][2] = avatarDeformData_Source[key][2];
             }
         }
 

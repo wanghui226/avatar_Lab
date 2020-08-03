@@ -6,12 +6,6 @@ using System.Collections.Generic;
 namespace MileCode {
     [CustomEditor(typeof(AvatarDeformer))]
     public class AvatarDeformEditor : Editor {
-        /*
-        FieldInfo[] allFields;
-        private void OnEnable() {
-            this.allFields = this.FetchAllFieldFromAvatarDeformData();
-        }
-        */
 
         void OnSceneGUI() {
             AvatarDeformer avatarInfo = target as AvatarDeformer;
@@ -20,16 +14,6 @@ namespace MileCode {
             }
 
         }
-
-        /*
-        FieldInfo[] FetchAllFieldFromAvatarDeformData() {
-            FieldInfo[] allfield = typeof(AvatarDeformData).GetFields();
-            if(allfield.Length >= 1) {
-                return allfield;
-            }
-            return null;
-        }
-        */
 
         Vector2 pos = new Vector2(10, 10);
         bool isSettingUIShowing = false;
@@ -47,17 +31,19 @@ namespace MileCode {
   
                     if(GUILayout.Button("Normal", GUILayout.Width(buttonWidth))) {
                         AvatarDeformData copiedValue = AssetDatabase.LoadAssetAtPath<AvatarDeformData>("Assets/Data/AvatarSizeData/AvatarDeformData_normal.asset");
-                        //avatarDeformData.head[2] = Vector3.one;
                         avatarDeformData.CopyValuesFromAnotherData(copiedValue);
                     }
                     if(GUILayout.Button("Fat", GUILayout.Width(buttonWidth))) {
-                        //avatarDeformData.CopyFromAvatarData(AssetDatabase.LoadAssetAtPath<AvatarDeformData>("Assets/Data/AvatarSizeData/AvatarDeformData_fat.asset"));
+                        AvatarDeformData copiedValue = AssetDatabase.LoadAssetAtPath<AvatarDeformData>("Assets/Data/AvatarSizeData/AvatarDeformData_fat.asset");
+                        avatarDeformData.CopyValuesFromAnotherData(copiedValue);
                     }
                     if(GUILayout.Button("Strong", GUILayout.Width(buttonWidth))) {
-                        //avatarDeformer.avatarDeformData.CopyFromAvatarData(AssetDatabase.LoadAssetAtPath<AvatarDeformData>("Assets/Data/AvatarSizeData/AvatarDeformData_strong.asset"));
+                        AvatarDeformData copiedValue = AssetDatabase.LoadAssetAtPath<AvatarDeformData>("Assets/Data/AvatarSizeData/AvatarDeformData_strong.asset");
+                        avatarDeformData.CopyValuesFromAnotherData(copiedValue);
                     }
                     if(GUILayout.Button("Thin", GUILayout.Width(buttonWidth))) {
-                        //avatarDeformer.avatarDeformData.CopyFromAvatarData(AssetDatabase.LoadAssetAtPath<AvatarDeformData>("Assets/Data/AvatarSizeData/AvatarDeformData_thin.asset"));
+                        AvatarDeformData copiedValue = AssetDatabase.LoadAssetAtPath<AvatarDeformData>("Assets/Data/AvatarSizeData/AvatarDeformData_thin.asset");
+                        avatarDeformData.CopyValuesFromAnotherData(copiedValue);
                     }
                     
                     GUILayout.EndHorizontal();
