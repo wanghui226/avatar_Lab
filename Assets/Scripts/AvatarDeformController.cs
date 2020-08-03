@@ -5,35 +5,56 @@ using UnityEngine;
 
 namespace MileCode {
     public class AvatarDeformController  {
-        static SkinnedMeshRenderer[] skinnedMeshRenderers;
-        static Transform[] deformNodes;
-        static List<GameObject> deformers;
-        public static void InitializeAvatarSizeController(SkinnedMeshRenderer[] skinnedMeshesRendererComponents, Transform[] deformNodeTranforms) {
-            deformNodes = deformNodeTranforms;
-            skinnedMeshRenderers = skinnedMeshesRendererComponents;
+        static List<Transform> deformers;
+        static AvatarDeformData avatarDeformData;
+
+        public static void InitializeController(Transform playerTransform, AvatarDeformData avatarDeformDataInput, SkinnedMeshRenderer[] skinnedMeshRenderer) {
+            avatarDeformData = avatarDeformDataInput;
             deformers = GetDeformersFromDeformNodes();
+            GroupDeformers(deformers);
+        }
+
+        public static void GroupDeformers(List<Transform> deformers) {
 
         }
 
-        private static void EnableDeformers(List<GameObject> deformers) {
-            throw new NotImplementedException();
-        }
-
-        private static List<GameObject> GetDeformersFromDeformNodes() {
-            List<GameObject> deformers = new List<GameObject>();
-            foreach(Transform deformNode in deformNodes) {
-                GameObject deformer = new GameObject(deformNode.name + "_def");
-                deformer.transform.SetParent(deformNode);
-                deformer.transform.localPosition = Vector3.zero;
-                deformer.transform.localRotation = Quaternion.Euler(Vector3.zero);
-                deformer.transform.localScale = Vector3.one;
-                //deformer.transform.position = deformNode.transform.position;
-            }
+        private static List<Transform> GetDeformersFromDeformNodes() {
+            List<Transform> deformers = new List<Transform>();
             return deformers;
         }
 
-        public static void Deform() { 
-            
+        
+
+        public static void DeformToFat() {
+            AvatarDeformData sourceData = GetDeformDataFromPedefined(AvatarSize.fat);
+            avatarDeformData.CopyValuesFromAnotherData(sourceData);
+            Deform();
+        }
+
+
+        public static void DeformToNormal() {
+            AvatarDeformData sourceData = GetDeformDataFromPedefined(AvatarSize.normal);
+            avatarDeformData.CopyValuesFromAnotherData(sourceData);
+            Deform();
+        }
+
+        private static void  Deform() { 
+        }
+
+      
+
+
+        private static AvatarDeformData GetDeformDataFromPedefined(AvatarSize avatarSize) {
+            return null;
+            //return AssetBundle.LoadFromFile("path").LoadAsset<AvatarDeformData>("predefined_AvatarSize");
+        }
+
+
+        enum AvatarSize { 
+            normal,
+            fat,
+            strong,
+            thin
         }
 
     }

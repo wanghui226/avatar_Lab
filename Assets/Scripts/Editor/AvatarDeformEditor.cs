@@ -9,9 +9,12 @@ namespace MileCode {
 
         void OnSceneGUI() {
             AvatarDeformer avatarInfo = target as AvatarDeformer;
+
             if(avatarInfo.IsAvatarInfoReady() && avatarInfo.avatarDeformData.allFieldsValue.Count >= 1) {
                 this.DrawAvatarDefromDataOnScreen(avatarInfo.avatarDeformData);
             }
+
+           
 
         }
 

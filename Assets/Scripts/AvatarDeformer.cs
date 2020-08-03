@@ -1,14 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.TerrainAPI;
 using UnityEngine;
 
 namespace MileCode {
     [DisallowMultipleComponent]
     public class AvatarDeformer : MonoBehaviour {
-        public SkinnedMeshRenderer[] skinnedMeshRenderers;
         public AvatarDeformData avatarDeformData;
+        public SkinnedMeshRenderer[] skinnedMeshRenderers;
+        public Transform playerTransform;
         private void Start() {
+            // check 
             if(IsAvatarInfoReady()) {
+                AvatarDeformController.InitializeController(playerTransform, avatarDeformData, skinnedMeshRenderers);
             }
         }
 
@@ -18,23 +22,23 @@ namespace MileCode {
                 return false;
             }
 
-            if(this.skinnedMeshRenderers.Length >= 1) {
-                foreach(var skinnedMeshRenderer in this.skinnedMeshRenderers) {
-                    if(skinnedMeshRenderer == null) {
-                        Debug.Log("SkinnedMeshRenderer is not ready.");
-                        return false;
-                    }
-                }
-            } else {
-                Debug.Log("SkinnedMeshRenderer is not ready.");
-                return false;
+            // check skinnedMesh
+            if(true) { 
             }
-            
+
+            // check transform
+            if(true) { 
+            }
+
             //Debug.Log("AvatarInfo is ready.");
             return true;
         }
 
-        
+        private void OnGUI() {
+            if(GUILayout.Button("Normal")) {
+                AvatarDeformController.DeformToNormal();
+            }
+        }
 
     }
 }
