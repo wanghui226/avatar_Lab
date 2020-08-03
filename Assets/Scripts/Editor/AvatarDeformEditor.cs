@@ -1,28 +1,27 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEditor;
-using System.Reflection;
-using System;
+using System.Collections.Generic;
 
 namespace MileCode {
     [CustomEditor(typeof(AvatarDeformer))]
     public class AvatarDeformEditor : Editor {
+        /*
         FieldInfo[] allFields;
-
         private void OnEnable() {
             this.allFields = this.FetchAllFieldFromAvatarDeformData();
         }
-
+        */
 
         void OnSceneGUI() {
             AvatarDeformer avatarInfo = target as AvatarDeformer;
-            if(avatarInfo.IsAvatarInfoReady() && this.allFields.Length >= 1) {
+            if(avatarInfo.IsAvatarInfoReady() && avatarInfo.avatarDeformData.allFieldsValue.Count >= 1) {
                 this.DrawAvatarDefromDataOnScreen(avatarInfo.avatarDeformData);
             }
 
         }
 
-
+        /*
         FieldInfo[] FetchAllFieldFromAvatarDeformData() {
             FieldInfo[] allfield = typeof(AvatarDeformData).GetFields();
             if(allfield.Length >= 1) {
@@ -30,6 +29,7 @@ namespace MileCode {
             }
             return null;
         }
+        */
 
         Vector2 pos = new Vector2(10, 10);
         bool isSettingUIShowing = false;
@@ -38,29 +38,63 @@ namespace MileCode {
             Handles.BeginGUI();
             {
                 GUIStyle boxStyle = new GUIStyle("box");
-                GUILayout.BeginArea(new Rect(Screen.width - 300, Screen.height - 440, 295, 390), boxStyle);
+                GUILayout.BeginArea(new Rect(Screen.width - 610, Screen.height - 460, 600, 412), boxStyle);
                 {
-                    GUILayout.Label("-------------- AvatarDeformData ---------------");
+                    GUILayout.Label("-------------------------------------- AvatarDeformData ------------------------------------------");
+                 
+                    GUILayout.BeginHorizontal();
+                    float buttonWidth = 145;
+  
+                    if(GUILayout.Button("Normal", GUILayout.Width(buttonWidth))) {
+                        AvatarDeformData copiedValue = AssetDatabase.LoadAssetAtPath<AvatarDeformData>("Assets/Data/AvatarSizeData/AvatarDeformData_normal.asset");
+                        //avatarDeformData.head[2] = Vector3.one;
+                        avatarDeformData.CopyValuesFromAnotherData(copiedValue);
+                    }
+                    if(GUILayout.Button("Fat", GUILayout.Width(buttonWidth))) {
+                        //avatarDeformData.CopyFromAvatarData(AssetDatabase.LoadAssetAtPath<AvatarDeformData>("Assets/Data/AvatarSizeData/AvatarDeformData_fat.asset"));
+                    }
+                    if(GUILayout.Button("Strong", GUILayout.Width(buttonWidth))) {
+                        //avatarDeformer.avatarDeformData.CopyFromAvatarData(AssetDatabase.LoadAssetAtPath<AvatarDeformData>("Assets/Data/AvatarSizeData/AvatarDeformData_strong.asset"));
+                    }
+                    if(GUILayout.Button("Thin", GUILayout.Width(buttonWidth))) {
+                        //avatarDeformer.avatarDeformData.CopyFromAvatarData(AssetDatabase.LoadAssetAtPath<AvatarDeformData>("Assets/Data/AvatarSizeData/AvatarDeformData_thin.asset"));
+                    }
+                    
+                    GUILayout.EndHorizontal();
+                    /*
+                    if(GUILayout.Button("Save Current")) {
+                    }
+                    */
+                    GUILayout.Label("--------------------------------------------------------------------------------------------------");
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label("Data Name: ", GUILayout.Width(70));
+                    avatarDeformData.dataName = GUILayout.TextField(avatarDeformData.dataName, GUILayout.Width(175));
+                    GUILayout.Label("\tData ID: ", GUILayout.Width(110));
+                    avatarDeformData.dataID = EditorGUILayout.IntField(avatarDeformData.dataID, GUILayout.Width(223));
+                    GUILayout.EndHorizontal();
                     using(var scrollView = new GUILayout.ScrollViewScope(this.pos)) {
                         this.pos = scrollView.scrollPosition;
-
-                        foreach(var field in this.allFields) {
-                            
+                        
+                        foreach(var element in avatarDeformData.allFieldsValue) {
                             GUILayout.BeginHorizontal();
-                            GUILayout.Label(field.Name);
-                            if(field.Name == "dataName" || field.Name == "dataID") {
+                            GUILayout.Label(element.Key);
+                            
+                            if(element.Key == "dataName" || element.Key == "dataID") {
                                 GUILayout.EndHorizontal();
                                 continue;
                             }
+                            
                             if(GUILayout.Button("Set", GUILayout.Width(40))) {
                                 this.isSettingUIShowing = true;
-                                settingUIName = field.Name;
+                                this.settingUIName = element.Key;
                             }
+                            
                             GUILayout.EndHorizontal();
-                            if(isSettingUIShowing && field.Name == settingUIName) {
-
-                                this.DrawSettingUI(field, avatarDeformData);
+                            
+                            if(isSettingUIShowing && element.Key == this.settingUIName) {
+                                this.DrawSettingUI(element.Key, avatarDeformData);
                             }
+                            
                         }
                
                     }
@@ -70,58 +104,30 @@ namespace MileCode {
             Handles.EndGUI();
         }
 
-        Vector3[] FieldValue;
-        private void DrawSettingUI(FieldInfo field, AvatarDeformData avatarDeformData) {
-            this.FieldValue = GetFieldValueByFieldName(field, avatarDeformData);
-            if(FieldValue == null) {
-                return;
-            }
+
+        private void DrawSettingUI(string fieldName, AvatarDeformData avatarDeformData) {
             // position settings
             GUILayout.BeginHorizontal();
+            GUILayout.Label("    Pos: ");
+            avatarDeformData.allFieldsValue[fieldName][0].x = EditorGUILayout.Slider(avatarDeformData.allFieldsValue[fieldName][0].x, -1, 1);
+            avatarDeformData.allFieldsValue[fieldName][0].y = EditorGUILayout.Slider(avatarDeformData.allFieldsValue[fieldName][0].y, -1, 1);
+            avatarDeformData.allFieldsValue[fieldName][0].z = EditorGUILayout.Slider(avatarDeformData.allFieldsValue[fieldName][0].z, -1, 1);
             GUILayout.EndHorizontal();
             // rotation settings;
             GUILayout.BeginHorizontal();
+            GUILayout.Label("    Rot: ");
+            avatarDeformData.allFieldsValue[fieldName][1].x = EditorGUILayout.Slider(avatarDeformData.allFieldsValue[fieldName][1].x, -1, 1);
+            avatarDeformData.allFieldsValue[fieldName][1].y = EditorGUILayout.Slider(avatarDeformData.allFieldsValue[fieldName][1].y, -1, 1);
+            avatarDeformData.allFieldsValue[fieldName][1].z = EditorGUILayout.Slider(avatarDeformData.allFieldsValue[fieldName][1].z, -1, 1);
             GUILayout.EndHorizontal();
             // scale settings
             GUILayout.BeginHorizontal();
+            GUILayout.Label("    Scl: ");
+            avatarDeformData.allFieldsValue[fieldName][2].x = EditorGUILayout.Slider(avatarDeformData.allFieldsValue[fieldName][2].x, -1, 1);
+            avatarDeformData.allFieldsValue[fieldName][2].y = EditorGUILayout.Slider(avatarDeformData.allFieldsValue[fieldName][2].y, -1, 1);
+            avatarDeformData.allFieldsValue[fieldName][2].z = EditorGUILayout.Slider(avatarDeformData.allFieldsValue[fieldName][2].z, -1, 1);
             GUILayout.EndHorizontal();
         }
 
-        private Vector3[] GetFieldValueByFieldName(FieldInfo field, AvatarDeformData avatarDeformData) {
-            switch(field.Name) {
-                case "head":
-                    return avatarDeformData.head;
-                case "neck":
-                    return avatarDeformData.head;
-                case "spine2":
-                    return avatarDeformData.head;
-                case "spine1":
-                    return avatarDeformData.head;
-                case "spine":
-                    return avatarDeformData.head;
-                case "pelvis":
-                    return avatarDeformData.head;
-                case "thigh":
-                    return avatarDeformData.head;
-                case "calf":
-                    return avatarDeformData.head;
-                case "clavicle":
-                    return avatarDeformData.head;
-                case "upperArm":
-                    return avatarDeformData.head;
-                case "foreArm":
-                    return avatarDeformData.head;
-                case "hand":
-                    return avatarDeformData.head;
-                case "finger":
-                    return avatarDeformData.head;
-                case "foot":
-                    return avatarDeformData.head;
-                case "toe0":
-                    return avatarDeformData.head;
-                default:
-                    return null;
-            }
-        }
     }
 }
