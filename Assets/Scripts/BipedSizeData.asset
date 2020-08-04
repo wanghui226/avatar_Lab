@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c062760e4fb36438645e3158986642, type: 3}
   m_Name: BipedSizeData
   m_EditorClassIdentifier: 
-  headSize: 0.5
+  headSize: 0.494
