@@ -5,57 +5,44 @@ using UnityEngine;
 
 namespace MileCode {
     public class AvatarDeformController  {
-        static List<Transform> deformers;
         static AvatarDeformData avatarDeformData;
+        static List<AvatarDeformData> predefined_AvatarDeformData;
 
-        public static void InitializeController(Transform playerTransform, AvatarDeformData avatarDeformDataInput, SkinnedMeshRenderer[] skinnedMeshRenderer) {
-            avatarDeformData = avatarDeformDataInput;
-            deformers = GetDeformersFromDeformNodes();
-            GroupDeformers(deformers);
+        public static void InitializeController(Transform playerTransform, AvatarDeformData playerAvatarDeformData, SkinnedMeshRenderer[] skinnedMeshRenderers) {
+            avatarDeformData = playerAvatarDeformData;
+            SetDefaultDeformData();
         }
 
-        public static void GroupDeformers(List<Transform> deformers) {
-
+        public static void Deform() { 
+           
         }
 
-        private static List<Transform> GetDeformersFromDeformNodes() {
-            List<Transform> deformers = new List<Transform>();
-            return deformers;
+        private static void SetDefaultDeformData() {
+            string bundleAssetPath = Application.dataPath + "/AssetBundles/StandaloneWindows/predefinedavatarsize";
+            var bundleData = AssetBundle.LoadFromFile(bundleAssetPath);
+            if(bundleData == null) {
+                Debug.Log("Faild to load predfinedAvatarSizeData bundle");
+                return;
+            }
+            var prefab = bundleData.LoadAsset<GameObject>("Predefined_AvatarSize");
+            if(prefab == null) {
+                Debug.Log("Can't find object in bundle data.");
+                return;
+            }
+            AvatarDeformDataPool predfinedData = prefab.GetComponent<AvatarDeformDataPool>();
+            if(predfinedData == null) {
+                Debug.Log("Can't find component in prefab.");
+            }
+            if(predfinedData.avatarDeformDatas.Length >= 1) {
+                predefined_AvatarDeformData = new List<AvatarDeformData>();
+                foreach(AvatarDeformData data in predfinedData.avatarDeformDatas) {
+                    if(data != null) { 
+                        predefined_AvatarDeformData.Add(data);
+                    }
+                }
+            }
         }
 
-        
-
-        public static void DeformToFat() {
-            AvatarDeformData sourceData = GetDeformDataFromPedefined(AvatarSize.fat);
-            avatarDeformData.CopyValuesFromAnotherData(sourceData);
-            Deform();
-        }
-
-
-        public static void DeformToNormal() {
-            AvatarDeformData sourceData = GetDeformDataFromPedefined(AvatarSize.normal);
-            avatarDeformData.CopyValuesFromAnotherData(sourceData);
-            Deform();
-        }
-
-        private static void  Deform() { 
-        }
-
-      
-
-
-        private static AvatarDeformData GetDeformDataFromPedefined(AvatarSize avatarSize) {
-            return null;
-            //return AssetBundle.LoadFromFile("path").LoadAsset<AvatarDeformData>("predefined_AvatarSize");
-        }
-
-
-        enum AvatarSize { 
-            normal,
-            fat,
-            strong,
-            thin
-        }
 
     }
 }

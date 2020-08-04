@@ -8,10 +8,10 @@ namespace MileCode {
     public class AvatarDeformEditor : Editor {
 
         void OnSceneGUI() {
-            AvatarDeformer avatarInfo = target as AvatarDeformer;
+            AvatarDeformer avatarDeformer = target as AvatarDeformer;
 
-            if(avatarInfo.IsAvatarInfoReady() && avatarInfo.avatarDeformData.allFieldsValue.Count >= 1) {
-                this.DrawAvatarDefromDataOnScreen(avatarInfo.avatarDeformData);
+            if(avatarDeformer.IsAvatarDeformerReady() && avatarDeformer.avatarDeformData.allFieldsValue.Count >= 1) {
+                this.DrawAvatarDefromDataOnScreen(avatarDeformer.avatarDeformData);
             }
 
            

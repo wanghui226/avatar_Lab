@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 1613225271
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b074b801a50817f9d46618611eb738eb
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3937ef1d2fff3e93731af346ede45a0b
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: a9b727d59ce44314482477e6a7f4b758, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9f5a3d17ae0b0884e9c19418f10be39f, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/Prefabs/Predefined_AvatarSize.prefab
+Dependencies: []

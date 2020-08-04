@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.TerrainAPI;
 using UnityEngine;
 
 namespace MileCode {
@@ -11,33 +10,44 @@ namespace MileCode {
         public Transform playerTransform;
         private void Start() {
             // check 
-            if(IsAvatarInfoReady()) {
+            if(IsAvatarDeformerReady()) {
                 AvatarDeformController.InitializeController(playerTransform, avatarDeformData, skinnedMeshRenderers);
             }
         }
 
-        public bool IsAvatarInfoReady() {
+        private void Update() {
+            if(IsAvatarDeformerReady()) {
+                AvatarDeformController.Deform();
+            }
+        }
+
+        public bool IsAvatarDeformerReady() {
             if(this.avatarDeformData == null) {
                 Debug.Log("AvatarDeformData is not ready.");
                 return false;
             }
 
             // check skinnedMesh
-            if(true) { 
+            if(skinnedMeshRenderers.Length <= 1) {
+                Debug.Log("SkinnedMeshRenderer is not ready.");
+                return false;
+            } else {
+                foreach(var skinnedMesh in skinnedMeshRenderers) {
+                    if(skinnedMesh == null) {
+                        Debug.Log("There's one skinnedMesh not ready.");
+                        return false;
+                    }
+                }
             }
 
             // check transform
-            if(true) { 
+            if(playerTransform == null) {
+                Debug.Log("Player transform is not ready.");
+                return false;
             }
 
             //Debug.Log("AvatarInfo is ready.");
             return true;
-        }
-
-        private void OnGUI() {
-            if(GUILayout.Button("Normal")) {
-                AvatarDeformController.DeformToNormal();
-            }
         }
 
     }

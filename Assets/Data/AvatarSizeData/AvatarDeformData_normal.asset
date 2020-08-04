@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9b727d59ce44314482477e6a7f4b758, type: 3}
-  m_Name: AvatarDeformData_thin 2
+  m_Name: AvatarDeformData_normal
   m_EditorClassIdentifier: 
-  dataName: 
+  dataName: predefined_normal
   dataID: 0
   head:
   - {x: 0, y: 0, z: 0}
