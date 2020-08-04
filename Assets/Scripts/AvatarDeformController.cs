@@ -89,11 +89,28 @@ namespace MileCode {
                 }
             }
         }
-        public static void DeformToFat() {
+        public static void Deform(AvatarSize avatarSize) {
+            AvatarDeformData sourceData = predefined_AvatarDeformData[0];
+            if(avatarSize == AvatarSize.Normal) {
+                sourceData = predefined_AvatarDeformData[0];
+            }
+            if(avatarSize == AvatarSize.Fat) {
+                sourceData = predefined_AvatarDeformData[1];
+            }
+            if(avatarSize == AvatarSize.Strong) {
+                sourceData = predefined_AvatarDeformData[2];
+            }
+            if(avatarSize == AvatarSize.Thin) {
+                sourceData = predefined_AvatarDeformData[3];
+            }
+            avatarDeformData.CopyValuesFromAnotherData(sourceData);
+        }
+     /*   public static void DeformToFat() {
             AvatarDeformData sourceData = predefined_AvatarDeformData[0];
             avatarDeformData.CopyValuesFromAnotherData(sourceData);
         //    Deform(sourceData);
         }
+
         public static void DeformToNormal() {
             AvatarDeformData sourceData = predefined_AvatarDeformData[1];
             avatarDeformData.CopyValuesFromAnotherData(sourceData);
@@ -105,10 +122,10 @@ namespace MileCode {
         //    Deform(sourceData);
         }
         public static void DeformToThin() {
-            AvatarDeformData sourceData = predefined_AvatarDeformData[0];
+            AvatarDeformData sourceData = predefined_AvatarDeformData[3];
             avatarDeformData.CopyValuesFromAnotherData(sourceData);
         //    Deform(sourceData);
-        }
+        } */
         private static void SetDefaultDeformData() {
             string bundleAssetPath = Application.dataPath + "/AssetBundles/StandaloneWindows/predefinedavatarsize";
             var bundleData = AssetBundle.LoadFromFile(bundleAssetPath);
@@ -134,5 +151,11 @@ namespace MileCode {
                 }
             }
         }
+    }
+    public enum AvatarSize {
+        Normal,
+        Fat,
+        Strong,
+        Thin
     }
 }

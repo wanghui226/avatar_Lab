@@ -7,11 +7,11 @@ namespace MileCode {
     public class AvatarDeformer : MonoBehaviour {
         public AvatarDeformData avatarDeformData;
         public SkinnedMeshRenderer[] skinnedMeshRenderers;
-        public Vector3 playerScale;
+        public Transform playerScale;
         private void Start() {
             // check 
             if(IsAvatarDeformerReady()) {
-                AvatarDeformController.InitializeController(playerScale, skinnedMeshRenderers,avatarDeformData);
+                AvatarDeformController.InitializeController(playerScale.localScale, skinnedMeshRenderers,avatarDeformData);
             }
         }
         private void Update() {
