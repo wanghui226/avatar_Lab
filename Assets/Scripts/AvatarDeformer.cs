@@ -7,14 +7,13 @@ namespace MileCode {
     public class AvatarDeformer : MonoBehaviour {
         public AvatarDeformData avatarDeformData;
         public SkinnedMeshRenderer[] skinnedMeshRenderers;
-        public Transform playerTransform;
+        public Vector3 playerScale;
         private void Start() {
             // check 
             if(IsAvatarDeformerReady()) {
-                AvatarDeformController.InitializeController(playerTransform, avatarDeformData, skinnedMeshRenderers);
+                AvatarDeformController.InitializeController(playerScale, skinnedMeshRenderers,avatarDeformData);
             }
         }
-
         private void Update() {
             if(IsAvatarDeformerReady()) {
                 AvatarDeformController.Deform();
@@ -40,8 +39,8 @@ namespace MileCode {
                 }
             }
 
-            // check transform
-            if(playerTransform == null) {
+            // check playerScale
+            if(playerScale == null) {
                 Debug.Log("Player transform is not ready.");
                 return false;
             }

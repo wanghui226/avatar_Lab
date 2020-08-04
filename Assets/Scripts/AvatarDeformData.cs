@@ -16,35 +16,35 @@ public class AvatarDeformData : ScriptableObject {
     private Vector3[] this[string name] {
         get {
             switch(name) {
-                case "head":
+                case "Head":
                     return this.head;
-                case "neck":
+                case "Neck":
                     return this.neck;
-                case "spine":
+                case "Spine":
                     return this.spine;
-                case "spine1":
+                case "Spine1":
                     return this.spine1;
-                case "spine2":
+                case "Spine2":
                     return this.spine2;
-                case "pelvis":
+                case "Pelvis":
                     return this.pelvis;
-                case "thigh":
+                case "Thigh":
                     return this.thigh;
-                case "calf":
+                case "Calf":
                     return this.calf;
-                case "clavicle":
+                case "Clavicle":
                     return this.clavicle;
-                case "upperArm":
+                case "UpperArm":
                     return this.upperArm;
-                case "foreArm":
+                case "Forearm":
                     return this.foreArm;
-                case "hand":
+                case "Hand":
                     return this.hand;
-                case "finger":
+                case "Finger":
                     return this.finger;
-                case "foot":
+                case "Foot":
                     return this.foot;
-                case "toe0":
+                case "Toe0":
                     return this.toe0;
                 default:
                     return null;
@@ -141,21 +141,21 @@ public class AvatarDeformData : ScriptableObject {
 
     private Dictionary<string, Vector3[]> GetAllFieldsValue() {
         Dictionary<string, Vector3[]> AllFieldsValue = new Dictionary<string, Vector3[]>();
-        AllFieldsValue["head"] = this.head;
-        AllFieldsValue["neck"] = this.neck;
-        AllFieldsValue["spine2"] = this.spine2;
-        AllFieldsValue["spine1"] = this.spine1;
-        AllFieldsValue["spine"] = this.spine;
-        AllFieldsValue["pelvis"] = this.pelvis;
-        AllFieldsValue["thigh"] = this.thigh;
-        AllFieldsValue["calf"] = this.calf;
-        AllFieldsValue["clavicle"] = this.clavicle;
-        AllFieldsValue["upperArm"] = this.upperArm;
-        AllFieldsValue["foreArm"] = this.foreArm;
-        AllFieldsValue["hand"] = this.hand;
-        AllFieldsValue["finger"] = this.finger;
-        AllFieldsValue["foot"] = this.foot;
-        AllFieldsValue["toe0"] = this.toe0;
+        AllFieldsValue["Head"] = this.head;
+        AllFieldsValue["Neck"] = this.neck;
+        AllFieldsValue["Spine2"] = this.spine2;
+        AllFieldsValue["Spine1"] = this.spine1;
+        AllFieldsValue["Spine"] = this.spine;
+        AllFieldsValue["Pelvis"] = this.pelvis;
+        AllFieldsValue["Thigh"] = this.thigh;
+        AllFieldsValue["Calf"] = this.calf;
+        AllFieldsValue["Clavicle"] = this.clavicle;
+        AllFieldsValue["UpperArm"] = this.upperArm;
+        AllFieldsValue["Forearm"] = this.foreArm;
+        AllFieldsValue["Hand"] = this.hand;
+        AllFieldsValue["Finger"] = this.finger;
+        AllFieldsValue["Foot"] = this.foot;
+        AllFieldsValue["Toe0"] = this.toe0;
         return AllFieldsValue;
     }
 

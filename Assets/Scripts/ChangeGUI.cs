@@ -8,19 +8,23 @@ public class ChangeGUI : MonoBehaviour{
         float buttonHeight = Screen.height/8;
         if (GUI.Button(new Rect(buttonWidth * 6,buttonHeight,buttonWidth,buttonHeight),"瘦")){
           //  ChangeBone.ChangeToThin(); 
-            BoneScale.ChangeToThin(); 
+          //  BoneScale.ChangeToThin(); 
+            MileCode.AvatarDeformController.DeformToThin();
         }
         if (GUI.Button(new Rect(buttonWidth * 6,buttonHeight *2+buttonHeight/5,buttonWidth,buttonHeight),"胖")){
           //  ChangeBone.ChangeToFat();
-            BoneScale.ChangeToFat();
+          //  BoneScale.ChangeToFat();
+            MileCode.AvatarDeformController.DeformToFat();
         }
         if (GUI.Button(new Rect(buttonWidth * 6,buttonHeight *3+buttonHeight/5*2,buttonWidth,buttonHeight),"精壮")){            
            // ChangeBone.ChangeToStrong();
-            BoneScale.ChangeToStrong();
+          //  BoneScale.ChangeToStrong();
+            MileCode.AvatarDeformController.DeformToStrong();
         }
         if (GUI.Button(new Rect(buttonWidth * 6,buttonHeight *4+buttonHeight/5*3,buttonWidth,buttonHeight),"标准")){
            // ChangeBone.ChangeToNormal();
-            BoneScale.ChangeToNormal();
+          //  BoneScale.ChangeToNormal();
+            MileCode.AvatarDeformController.DeformToNormal();
         }    
     }
 }
